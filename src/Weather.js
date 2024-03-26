@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import Loader from './Loader.js';
 
 const Weather = () => {
@@ -54,29 +56,29 @@ const Weather = () => {
     setCity(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     fetchData();
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center' }}>
+        <label htmlFor="city" style={{ marginRight: '10px', color:'orange' }}>Weather in your city</label>
         <input
           type="text"
           placeholder="Enter city name"
           value={city}
           onChange={handleInputChange}
         />
-        <button type="submit">Get Weather</button>
+        <button type="submit" style={{ marginLeft: '10px' }}>
+            <FontAwesomeIcon icon={faQuestionCircle} style={{ margin: '1px', color:'white' }} /> Search
+        </button>
+        {loading && <Loader style={{ marginLeft: '10px' }} />}
       </form>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <p>{error}</p>
-      ) : weatherData ? (
+      {/* {error && <p>{error}</p>} */}
+      {weatherData && (
         <>
-          <h2>Weather Forecast for {city}</h2>
           <div className="container" id="container">
             {weatherData.map((forecast, index) => (
               <table className="table" key={index}>
@@ -92,8 +94,8 @@ const Weather = () => {
                     <td>Max</td>
                   </tr>
                   <tr>
-                    <td>xx.xx</td>
-                    <td>xx.xx</td>
+                    <td>{forecast.main.temp_min}</td>
+                    <td>{forecast.main.temp_max}</td>
                   </tr>
                   <tr>
                     <td>Pressure</td>
@@ -108,8 +110,8 @@ const Weather = () => {
             ))}
           </div>
         </>
-      ) : null}
-    </div>
+      )}
+    </>
   );
 };
 
