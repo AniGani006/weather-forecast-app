@@ -7,7 +7,7 @@ const Weather = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const API_KEY = '8fd794c0cff7facb80a4d0e579876bad'; 
+  const API_KEY = '78721820090e11cc0581d8d68a55c26f'; 
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -63,31 +63,33 @@ const Weather = () => {
       ) : weatherData ? (
         <>
           <h2>Weather Forecast for {city}</h2>
-          <div class="container" id="container">
+          <div className="container" id="container">
           {weatherData.map((forecast, index) => (
-            <table class="table" key={index}>
-                <tr>
-                    <th colspan="2">Date: {forecast.dt_txt}</th>
-                </tr>
-                <tr>
-                    <td colspan="2">Temperature</td>
-                </tr>
-                <tr>
-                    <td>Min</td>
-                    <td>Max</td>
-                </tr>
-                <tr>
-                    <td>xx.xx</td>
-                    <td>xx.xx</td>
-                </tr>
-                <tr>
-                    <td>Pressure</td>
-                    <td>{forecast.main.pressure}</td>
-                </tr>
-                <tr>
-                    <td>Humidity</td>
-                    <td>{forecast.main.humidity}</td>
-                </tr>
+            <table className="table" key={index}>
+                <tbody>
+                    <tr>
+                        <th colSpan="2">Date: {forecast.dt_txt}</th>
+                    </tr>
+                    <tr>
+                        <td colSpan="2">Temperature</td>
+                    </tr>
+                    <tr>
+                        <td>Min</td>
+                        <td>Max</td>
+                    </tr>
+                    <tr>
+                        <td>xx.xx</td>
+                        <td>xx.xx</td>
+                    </tr>
+                    <tr>
+                        <td>Pressure</td>
+                        <td>{forecast.main.pressure}</td>
+                    </tr>
+                    <tr>
+                        <td>Humidity</td>
+                        <td>{forecast.main.humidity}</td>
+                    </tr>
+                </tbody>                
             </table>
             ))}
           </div>
